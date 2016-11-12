@@ -7,11 +7,10 @@ using Web.Contracts.Hello;
 
 namespace Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class HelloController : Controller, IHelloController
     {
-        [HttpGet]
-        [Route("GetFoo")]
+
         public List<Foo> GetFoo(int number)
         {
             var list = Enumerable.Range(0, number).Select(i => new Foo { Bar = i.ToString() }).ToList();
@@ -35,8 +34,6 @@ namespace Web.Controllers
             return list;
         }
 
-        [HttpGet]
-        [Route("GetWithDateTime")]
         public DateTime GetWithDateTime(DateTime dateTime)
         {
             return dateTime;

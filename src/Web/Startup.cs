@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Praaxi
+namespace Web
 {
     public class Startup
     {
@@ -33,8 +33,6 @@ namespace Praaxi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            //app.UseDeveloperExceptionPage();
 
             app.UseMvc();
         }

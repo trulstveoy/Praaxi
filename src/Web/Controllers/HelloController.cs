@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.Controllers;
 using Web.Contracts.Hello;
 
-namespace Praaxi.Controllers
+namespace Web.Controllers
 {
     [Route("api/[controller]")]
     public class HelloController : Controller, IHelloController
@@ -35,6 +35,8 @@ namespace Praaxi.Controllers
             return list;
         }
 
+        [HttpGet]
+        [Route("GetWithDateTime")]
         public DateTime GetWithDateTime(DateTime dateTime)
         {
             return dateTime;

@@ -39,10 +39,10 @@ namespace Web.Controllers
             return dateTime;
         }
 
-        public void PostFoo(Foo foo)
+        public void PostFoo([FromBody]Foo foo)
         { }
 
-        public Foo PostWithReturnType(Foo foo)
+        public Foo PostWithReturnType([FromBody]Foo foo)
         {
             return foo;
         }

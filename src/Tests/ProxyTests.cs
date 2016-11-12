@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Web;
 using Web.Contracts.Controllers;
+using Web.Contracts.Hello;
 using Xunit;
 
 namespace Tests
@@ -61,6 +62,27 @@ namespace Tests
             var result = _controller.GetWithMultiple(2, "testing");
             Assert.Equal(2, result.Count);
             Assert.Equal("testing", result.First().Bar);
+        }
+
+        [Fact]
+        public void GetWithoutArguments()
+        {
+            var result = _controller.GetWithoutArguments();
+            Assert.Equal(1, result.Count);
+        }
+
+        [Fact]
+        public void PostFoo()
+        {
+            _controller.PostFoo(new Foo {Bar = "test"});
+        }
+
+        [Fact]
+        public void PostWithReturnType()
+        {
+            var result = _controller.PostWithReturnType(new Foo {Bar = "test"});
+            Assert.NotNull(result);
+            Assert.Equal("test", result.Bar);
         }
     }
 }

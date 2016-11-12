@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using Castle.DynamicProxy;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Core
 {
@@ -36,6 +37,25 @@ namespace Core
             if (action.StartsWith("Get"))
             {
                 Get(controller, action, arguments, returnType, invocation);
+            }
+            else if(action.StartsWith("Post"))
+            {
+                Post(controller, action, arguments, returnType, invocation);
+            }
+        }
+
+        private void Post(string controller, string action, Dictionary<string, object> arguments, Type returnType, IInvocation invocation)
+        {
+            string url = $"{_baseUrl}/api/{controller}/{action}";
+            System.Diagnostics.Debug.WriteLine(url);
+            var json = JsonConvert.SerializeObject(arguments.First().Value);
+            System.Diagnostics.Debug.WriteLine(json);
+            var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            var resultAsString = _httpClient.PostAsync(url, content).Result.Content.ReadAsStringAsync().Result;
+            if (returnType != typeof(void))
+            {
+                var resultInstance = JsonConvert.DeserializeObject(resultAsString, returnType);
+                invocation.ReturnValue = resultInstance;
             }
         }
 

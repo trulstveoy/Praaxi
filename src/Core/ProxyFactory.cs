@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using Castle.DynamicProxy;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -33,15 +35,28 @@ namespace Core
             var controller = GetController(invocation);
             var returnType = invocation.Method.ReturnType;
             var action = invocation.Method.Name;
+            var restOperation = GetRestOperation(invocation.Method);
 
-            if (action.StartsWith("Get"))
+            if(restOperation == RestOperation.GET)
             {
                 Get(controller, action, arguments, returnType, invocation);
             }
-            else if(action.StartsWith("Post"))
+            else if(restOperation == RestOperation.POST)
             {
                 Post(controller, action, arguments, returnType, invocation);
             }
+        }
+
+        private RestOperation GetRestOperation(MethodInfo method)
+        {
+            var attributes = method.CustomAttributes.Select(x => x.AttributeType).ToList();
+            if(attributes.Contains(typeof(HttpGetAttribute)) || method.Name.StartsWith("Get"))
+                return RestOperation.GET;
+
+            if(attributes.Contains(typeof(HttpPostAttribute)) || method.Name.StartsWith("Post"))
+                return RestOperation.POST;
+
+            throw new InvalidOperationException($"Unknown rest operation for operation {method.Name}");
         }
 
         private void Post(string controller, string action, Dictionary<string, object> arguments, Type returnType, IInvocation invocation)
@@ -111,13 +126,6 @@ namespace Core
             return pairs;
         }
 
-        public void DoShit()
-        {
-            string url = "/api/hello/GetFoo?number=5";
-            var response = _httpClient.GetAsync(url).Result;
-            var resultAsString = response.Content.ReadAsStringAsync().Result;
-        }
-
         private class CallInterceptor : IInterceptor
         {
             private readonly Action<IInvocation> _intercept;
@@ -131,6 +139,12 @@ namespace Core
             {
                 _intercept(invocation);
             }
+        }
+
+        private enum RestOperation
+        {
+            GET,
+            POST
         }
     }
 }

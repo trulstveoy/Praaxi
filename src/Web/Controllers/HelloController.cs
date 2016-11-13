@@ -55,5 +55,11 @@ namespace Web.Controllers
         {
             return str;
         }
+
+        public List<Foo> ThisIsAGet(int number)
+        {
+            var list = Enumerable.Range(0, number).Select(i => new Foo { Bar = i.ToString() }).ToList();
+            return list;
+        }
     }
 }

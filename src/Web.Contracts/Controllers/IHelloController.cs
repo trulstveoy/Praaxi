@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Web.Contracts.Hello;
 
 namespace Web.Contracts.Controllers
@@ -14,5 +15,7 @@ namespace Web.Contracts.Controllers
         Foo PostWithReturnType(Foo foo);
         List<Foo> GetThrowsException();
         string PostSimpleType(string str);
+        [HttpGet]
+        List<Foo> ThisIsAGet(int number);
     }
 }

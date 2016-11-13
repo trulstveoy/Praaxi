@@ -91,5 +91,12 @@ namespace Tests
             var result = _controller.PostSimpleType("testing");
             Assert.Equal("testing", result);
         }
+
+        [Fact]
+        public void ThisIsAGet()
+        {
+            var result = _controller.ThisIsAGet(2);
+            Assert.Equal(2, result.Count);
+        }
     }
 }

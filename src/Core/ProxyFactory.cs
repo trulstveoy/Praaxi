@@ -54,8 +54,15 @@ namespace Core
             var resultAsString = _httpClient.PostAsync(url, content).Result.Content.ReadAsStringAsync().Result;
             if (returnType != typeof(void))
             {
-                var resultInstance = JsonConvert.DeserializeObject(resultAsString, returnType);
-                invocation.ReturnValue = resultInstance;
+                if (returnType == typeof(string))
+                {
+                    invocation.ReturnValue = resultAsString;
+                }
+                else
+                {
+                    var resultInstance = JsonConvert.DeserializeObject(resultAsString, returnType);
+                    invocation.ReturnValue = resultInstance;
+                }
             }
         }
 

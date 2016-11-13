@@ -8,9 +8,8 @@ using Web.Contracts.Hello;
 namespace Web.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class HelloController : Controller, IHelloController
+    public class HelloController : ControllerBase, IHelloController
     {
-
         public List<Foo> GetFoo(int number)
         {
             var list = Enumerable.Range(0, number).Select(i => new Foo { Bar = i.ToString() }).ToList();
@@ -39,10 +38,10 @@ namespace Web.Controllers
             return dateTime;
         }
 
-        public void PostFoo([FromBody]Foo foo)
+        public void PostFoo(Foo foo)
         { }
 
-        public Foo PostWithReturnType([FromBody]Foo foo)
+        public Foo PostWithReturnType(Foo foo)
         {
             return foo;
         }
@@ -50,6 +49,11 @@ namespace Web.Controllers
         public List<Foo> GetThrowsException()
         {
             throw new DivideByZeroException();
+        }
+
+        public string PostSimpleType(string str)
+        {
+            return str;
         }
     }
 }

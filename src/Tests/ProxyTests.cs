@@ -84,5 +84,12 @@ namespace Tests
             Assert.NotNull(result);
             Assert.Equal("test", result.Bar);
         }
+
+        [Fact]
+        public void PostSimpleType()
+        {
+            var result = _controller.PostSimpleType("testing");
+            Assert.Equal("testing", result);
+        }
     }
 }

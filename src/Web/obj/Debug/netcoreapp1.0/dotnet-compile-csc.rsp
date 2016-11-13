@@ -168,4 +168,8 @@
 -resource:"/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/obj/Debug/netcoreapp1.0/Webdotnet-compile.deps.json",Web.deps.json
 "/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/Program.cs"
 "/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/Startup.cs"
+"/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/Binding/ComplexTypeConvention.cs"
+"/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/Binding/CustomConvention.cs"
+"/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/Binding/CustomModelBinder.cs"
+"/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/Binding/CustomModelBinderProvider.cs"
 "/Users/trulstveoy/Documents/githubrepos/Praaxi/src/Web/Controllers/HelloController.cs"

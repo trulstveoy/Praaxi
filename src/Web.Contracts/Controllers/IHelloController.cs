@@ -13,5 +13,6 @@ namespace Web.Contracts.Controllers
         void PostFoo(Foo foo);
         Foo PostWithReturnType(Foo foo);
         List<Foo> GetThrowsException();
+        string PostSimpleType(string str);
     }
 }

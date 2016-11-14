@@ -29,7 +29,7 @@ namespace Web
             services.AddMvc(config =>
             {
                 //config.ModelBinderProviders.Insert(0, new CustomModelBinderProvider());
-                config.Conventions.Add(new ComplexTypeConvention());
+                config.Conventions.Add(new BindPostedParametersConvention());
             });
         }
 

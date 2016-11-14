@@ -17,5 +17,7 @@ namespace Web.Contracts.Controllers
         string PostSimpleType(string str);
         [HttpGet]
         List<Foo> ThisIsAGet(int number);
+        [HttpPost]
+        Foo ThisIsAPost(Foo foo);
     }
 }

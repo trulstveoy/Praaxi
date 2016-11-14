@@ -61,5 +61,10 @@ namespace Web.Controllers
             var list = Enumerable.Range(0, number).Select(i => new Foo { Bar = i.ToString() }).ToList();
             return list;
         }
+
+        public Foo ThisIsAPost(Foo foo)
+        {
+            return foo;
+        }
     }
 }

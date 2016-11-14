@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Http;
 using Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -9,19 +8,17 @@ using Web.Contracts.Controllers;
 using Web.Contracts.Hello;
 using Xunit;
 
-namespace Tests
+namespace Tests.Integration
 {
     public class ProxyTests
     {
-        private TestServer _testServer;
-        private HttpClient _httpClient;
-        private IHelloController _controller;
+        private readonly IHelloController _controller;
 
         public ProxyTests()
         {
-            _testServer = new TestServer(new WebHostBuilder().UseStartup<Startup>());
-            _httpClient = _testServer.CreateClient();
-            var proxyFactory = new ProxyFactory(_httpClient, "");
+            var testServer = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            var httpClient = testServer.CreateClient();
+            var proxyFactory = new ProxyFactory(httpClient, "");
             _controller = proxyFactory.Create<IHelloController>();
         }
 
@@ -97,6 +94,13 @@ namespace Tests
         {
             var result = _controller.ThisIsAGet(2);
             Assert.Equal(2, result.Count);
+        }
+
+        [Fact]
+        public void ThisIsAPost()
+        {
+            var result = _controller.ThisIsAPost(new Foo{Bar = "test"});
+            Assert.Equal("test", result.Bar);
         }
     }
 }
